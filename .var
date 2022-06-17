@@ -1,0 +1,25 @@
+USER="seki"
+USERROLL="admin"
+
+PUID="$(id -u seki)"
+PGID="$(id -g seki)"
+
+IP=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
+PUBIP=$(curl ifconfig.me)
+SUBNET=$(ip -o -f inet addr show | awk '/scope global/ {printf "%s ", $4}' | awk '{print $1}')
+NETADAPT=$(ip route | grep default | sed -e "s/^.*dev.//" -e "s/.proto.*//")
+
+SITE="sekiteh.xyz"
+DNSAPI="API-KEY"
+
+IP=$(curl ifconfig.me)
+TIMEZONE="Europe/Zagreb"
+
+OSVER=$(cat /etc/*release | awk '/DISTRIB_DESCRIPTION=/ {print $2}')
+
+ROOT_PASSWORD="HAZsJ2zQsb!vg4s6w4"
+MYSQL_DATABASE="cjKkvqiSHsDiBpP"
+MYSQL_USER="XtrltRuadsaKexH"
+MYSQL_PASSWORD="7^5D2x34rPg!7fs"
+
+TASKRUN="30 05 * * *  " #05:30

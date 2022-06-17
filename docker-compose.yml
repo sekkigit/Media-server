@@ -1,0 +1,188 @@
+version: '3'
+
+services:
+  portainer:
+    image: portainer/portainer-ce
+    container_name: portainer
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./portainer-data:/data
+    ports:
+      - 9090:9000
+    restart: unless-stopped
+    networks:
+      - proxy
+
+  db:
+    image: jc21/mariadb-aria:latest
+    container_name: mariadb
+    env_file: .env
+    environment:
+      MYSQL_ROOT_PASSWORD: '${ROOT_PASSWORD}'
+      MYSQL_DATABASE: '${MYSQL_DATABASE}'
+      MYSQL_USER: '${MYSQL_USER}'
+      MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - proxy
+
+  nginx:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: proxymanager
+    env_file: .env
+    ports:
+      - 80:80
+      - 8585:81
+      - 443:443
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+    environment:
+      DB_MYSQL_HOST: "db"
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: "${MYSQL_USER}"
+      DB_MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      DB_MYSQL_NAME: "${MYSQL_DATABASE}"
+      DISABLE_IPV6: 'true'
+    restart: unless-stopped
+    depends_on:
+      - db
+    networks:
+      - proxy
+
+  speedtest:
+    image: openspeedtest/latest:latest
+    container_name: openspeedtest
+    ports:
+      - 4040:3000
+    restart: unless-stopped
+    networks:
+      - proxy
+
+  dashboard:
+    image: b4bz/homer
+    container_name: homer-dashboard
+    ports:
+      - 5050:8080
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - USER=${USER}
+      - GROUP=${USER}
+      - UID=${PUID}
+      - GID=${PGID}
+    volumes:
+      - ./homer:/www/assets:ro
+    networks:
+      - proxy
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: grafana
+    ports:
+      - 3030:3000
+    volumes:
+      - grafana-data:/var/lib/grafana
+    restart: unless-stopped
+    networks:
+      - proxy
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - 9000:9090
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prometheus-data:/prometheus
+    restart: unless-stopped
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    networks:
+      - proxy
+
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    container_name: node_exporter
+    command:
+      - '--path.rootfs=/host'
+    pid: host
+    restart: unless-stopped
+    volumes:
+      - '/:/host:ro,rslave'
+    networks:
+      - proxy
+
+  cadvisor:
+    image: google/cadvisor:latest
+    container_name: cadvisor
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    devices:
+      - /dev/kmsg
+    restart: unless-stopped
+    networks:
+      - proxy
+
+  cloudflare-ddns:
+    image: oznu/cloudflare-ddns:latest
+    container_name: ddns
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - API_KEY=${DNSAPI}
+      - ZONE=${SITE}
+      - PROXIED=true
+      - PUID=${PUID}
+      - PGID=${PGID}
+    networks:
+      - proxy
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 21600
+    networks:
+      - proxy
+
+  qbittorrent:
+    image: linuxserver/qbittorrent:4.4.3
+    container_name: qbittorrent
+    env_file: .env
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
+      - WEBUI_PORT=2020
+    volumes:
+      - ./qbit/config:/config
+      - /media/share/Downloads:/downloads
+    ports:
+      - 2020:8080
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local

@@ -46,6 +46,9 @@ ufw default reject incoming
 ufw default allow outgoing
 ufw allow 80/tcp   #HTTP
 ufw allow 443/tcp  #HTTPS
+ufw allow 9595/tcp #Homr
+ufw allow 3030/tcp #Grafana
+ufw limit 9000     #Prometheus
 
 #SAMBA
 apt install samba -y
@@ -130,7 +133,6 @@ MYSQL_PASSWORD=${MYSQL_PASSWORD}
 EOF
 
 setfacl -m "u:root:rw" /home/"$USER"/docker/.env
-
 docker-compose -f /home/"$USER"/docker/docker-compose.yml --env-file /home/"$USER"/docker/.env up -d
 
 

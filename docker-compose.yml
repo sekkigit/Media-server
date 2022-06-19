@@ -158,20 +158,19 @@ services:
       - proxy
 
   qbittorrent:
-    image: linuxserver/qbittorrent:latest
+    image: lscr.io/linuxserver/qbittorrent
     container_name: qbittorrent
     env_file: .env
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TIMEZONE}
-    volumes:
-      - ./qbit/config:/config
-      - /media/share/Downloads:/downloads
     ports:
-      - 2020:8080
-      - 6881:6881
-      - 6881:6881/udp
+       - 1111:8080
+    environment:
+       - PUID=${PUID}
+       - PGID=${PGID}
+       - UMASK=002
+       - TZ=${TIMEZONE}
+    volumes:
+       - ./qbit/config:/config
+       - /media/share/Downloads:/downloads
     restart: unless-stopped
     networks:
       - proxy

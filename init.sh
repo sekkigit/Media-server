@@ -49,6 +49,9 @@ ufw allow 443/tcp  #HTTPS
 ufw allow 9595/tcp #Homr
 ufw allow 3030/tcp #Grafana
 ufw limit 9000     #Prometheus
+ufw limit 2020     #Qbittorrent
+ufw limit 6881/tcp #Qbittorrent
+ufw limit 6881/udp #Qbittorrent
 
 #SAMBA
 apt install samba -y

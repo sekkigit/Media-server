@@ -68,7 +68,7 @@ services:
     image: b4bz/homer
     container_name: homer-dashboard
     ports:
-      - 5050:8080
+      - 5151:8080
     restart: unless-stopped
     env_file: .env
     environment:
@@ -76,6 +76,7 @@ services:
       - GROUP=${USER}
       - UID=${PUID}
       - GID=${PGID}
+      - INIT_ASSETS=0
     volumes:
       - ./homer:/www/assets:ro
     networks:
@@ -166,7 +167,6 @@ services:
     environment:
        - PUID=${PUID}
        - PGID=${PGID}
-       - UMASK=002
        - TZ=${TIMEZONE}
     volumes:
        - ./qbit/config:/config

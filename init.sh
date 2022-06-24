@@ -18,11 +18,12 @@ apt upgrade -y
 #INSTALL-APPS
 apt install nano -y
 apt install btop -y
+apt install git -y
 
 #DIRECTORY
 mkdir /media/share
 mkdir /home/"$USER"/docker
-mkdir /home/"$USER"/docker/{homer,prometheus,portainer-data,vpn-data,speedtest}
+mkdir /home/"$USER"/docker/{homer,prometheus,portainer-data,vpn-data,speedtest,filebrowser,hugo}
 
 #HDD-MOUNT
 cat <<EOF >> /etc/fstab
@@ -168,11 +169,10 @@ EOF
 setfacl -m "u:root:rw" /home/"$USER"/docker/.env
 docker-compose -f /home/"$USER"/docker/docker-compose.yml --env-file /home/"$USER"/docker/.env up -d
 
-
 #CRONTAB
 cat <<EOF >> /etc/crontab
-$TASKRUN root    apt update && apt upgrade -y
-$TASKRUN root    cscli hub update && cscli collections upgrade crowdsecurity/sshd && systemctl reload crowdsec
+"$TASKRUN" root    apt update && apt upgrade -y
+"$TASKRUN" root    cscli hub update && cscli collections upgrade crowdsecurity/sshd && systemctl reload crowdsec
 EOF
 
 #LOG

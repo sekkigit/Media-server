@@ -120,7 +120,7 @@ services:
       - proxy
 
   cadvisor:
-    image: google/cadvisor:latest
+    image: gcr.io/cadvisor/cadvisor:latest
     container_name: cadvisor
     volumes:
       - /:/rootfs:ro
@@ -172,6 +172,22 @@ services:
        - ./qbit/config:/config
        - /media/share/Downloads:/downloads
     restart: unless-stopped
+    networks:
+      - proxy
+
+  filebrowser:
+    image: hurlenko/filebrowser:latest
+    user: "${UID}:${GID}"
+    ports:
+      - 2222:8080
+    volumes:
+      - /media/share:/data
+      - ./filebrowser:/config
+    environment:
+      - FB_BASEURL=/filebrowser
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
     networks:
       - proxy
 

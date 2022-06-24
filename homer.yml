@@ -42,11 +42,11 @@ colors:
 links:
   - name: "Seki Git-Hub"
     icon: "fab fa-github"
-    url: "https://github.com/sekkigit/Home-Lab.git"
+    url: "https://github.com/sekkigit"
     target: "_blank" # optional html a tag target attribute
-  - name: "Sekith.xyz"
+  - name: "Porfolio"
     icon: ""
-    url: "https://sekiteh.xyz"
+    url: "https://sekkigit.github.io/porfolio.sekiteh/"
     target: "_blank" # optional html a tag target attribute
 
 # Services

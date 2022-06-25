@@ -46,7 +46,7 @@ links:
     target: "_blank" # optional html a tag target attribute
   - name: "Porfolio"
     icon: ""
-    url: "https://sekkigit.github.io/porfolio.sekiteh/"
+    url: "https://porfolio.sekiteh.xyz/"
     target: "_blank" # optional html a tag target attribute
 
 # Services

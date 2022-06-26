@@ -171,8 +171,9 @@ docker-compose -f /home/"$USER"/docker/docker-compose.yml --env-file /home/"$USE
 
 #CRONTAB
 cat <<EOF >> /etc/crontab
-"$TASKRUN" root    apt update && apt upgrade -y
-"$TASKRUN" root    cscli hub update && cscli collections upgrade crowdsecurity/sshd && systemctl reload crowdsec
+0 5 * * * root    apt update && apt upgrade -y
+20 5 * * * root    cscli hub update && cscli collections upgrade crowdsecurity/sshd && systemctl reload crowdsec
+30 5 * * * root    docker system prune -a -f
 EOF
 
 #LOG

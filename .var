@@ -22,4 +22,3 @@ MYSQL_DATABASE="cjKkvqiSHsDiBpP"
 MYSQL_USER="XtrltRuadsaKexH"
 MYSQL_PASSWORD="7^5D2x34rPg!7fs"
 
-TASKRUN="30 05 * * *  " #05:30

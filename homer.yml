@@ -2,10 +2,12 @@
 # See https://fontawesome.com/icons for icons options
 
 title: "SekiTEH"
-subtitle: "Dashboard for HomeLab"
+logo: "https://github.com/sekkigit/porfolio.sekiteh/blob/gh-pages/img/seki-logo-simple.png?raw=true"
+subtitle: "Dashboard"
 
 header: true
 footer: false
+columns: "3"
 
 # Optional theme customization
 theme: default

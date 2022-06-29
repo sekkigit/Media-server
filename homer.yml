@@ -43,6 +43,7 @@ colors:
 # links: [] # Allows for navbar (dark mode, layout, and search) without any links
 links:
   - name: "Porfolio"
+    icon: "fas fa-eye"
     url: "https://porfolio.sekiteh.xyz/"
     target: "_blank" # optional html a tag target attribute
   - name: "Seki Git-Hub"
@@ -54,8 +55,8 @@ links:
 # First level array represent a group.
 # Leave only a "items" key if not using group (group name, icon & tagstyle are optional, section separation will not be displayed).
 services:
-  - name: "App"
-    logo: "https://cdn-icons-png.flaticon.com/512/7759/7759688.png"
+  - name: "Apps"
+    logo: "https://cdn-icons-png.flaticon.com/512/1055/1055662.png"
     items:
       - name: "Plex"
         logo: "https://github.com/walkxhub/dashboard-icons/raw/master/png/plex.png"

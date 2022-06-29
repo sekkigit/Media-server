@@ -1,0 +1,89 @@
+# yamllint disable rule:comments-indentation
+---
+###############################################################################
+#                           Authelia Configuration                            #
+###############################################################################
+
+theme: dark #light/dark
+jwt_secret: DcWwv6b0N8FA9BwffskaZvBTiHF6x69f #any text or number you want to add here to create jwt Token
+
+default_redirection_url: https://google.com/ #where to redirect for a non-existent URL
+
+server:
+  host: 0.0.0.0
+  port: 9091
+  read_buffer_size: 4096
+  write_buffer_size: 4096
+  enable_pprof: false
+  enable_expvars: false
+  disable_healthcheck: false
+
+log:
+  level: debug
+
+totp:
+  issuer: sekiteh.xyz #your authelia top-level domain
+  period: 30
+  skew: 1
+
+authentication_backend:
+  disable_reset_password: false
+  refresh_interval: 5m
+  file:
+    path: /config/users_database.yml #this is where your authorized users are stored
+    password:
+      algorithm: argon2id
+      iterations: 1
+      key_length: 32
+      salt_length: 16
+      memory: 1024
+      parallelism: 8
+
+access_control:
+  default_policy: deny
+  rules:
+    ## bypass rule
+    - domain: 
+        - "auth.sekiteh.xyz" #This should be your authentication URL
+      policy: bypass
+    - domain: "www.sekiteh.xyz" #example domain to protect
+      policy: bypass
+    - domain: "sekiteh.xyz" #example domain to protect
+      policy: bypass
+    - domain: "qbit.sekiteh.xyz" #example domain to protect
+      policy: one_factor
+    - domain: "speed.sekiteh.xyz" #example domain to protect
+      policy: one_factor
+    - domain: "graf.sekiteh.xyz" #example domain to protect
+      policy: one_factor
+    - domain: "nginx.sekiteh.xyz" #example subdomain to protect
+      policy: two_factor
+    - domain: "dock.sekiteh.xyz" #example subdomain to protect
+      policy: two_factor
+    - domain: "file.sekiteh.xyz" #example to protect all subdomains under top-level domain
+      policy: two_factor
+      #add or remove additional subdomains as necessary. currenlty only supports ONE top-level domain
+      #any time you add a new subdomain, you will need to restart the Authelia container to recognize the new settings/rules
+
+session:
+  name: authelia_session
+  secret: yCBs3j4BtmLQqOWYYKJefjyygWLMxW0P #any text or number you want to add here to create jwt Token
+  expiration: 3600  # 1 hour
+  inactivity: 300  # 5 minutes
+  domain: sekiteh.xyz  # Should match whatever your root protected domain is
+
+regulation:
+  max_retries: 3
+  find_time: 10m
+  ban_time: 24h
+
+storage:
+  local:
+    path: /config/db.sqlite3 #this is your databse. You could use a mysql database if you wanted, but we're going to use this one.
+  encryption_key: jdhmQOxlqI8pRsKE2Hll8MrYIGJuF829
+  
+notifier:
+  disable_startup_check: true #true/false
+  filesystem:
+    filename: /config/notification.txt
+...

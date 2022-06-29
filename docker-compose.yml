@@ -211,6 +211,21 @@ services:
     cap_add:
       - NET_ADMIN # Recommended but not required (DHCP needs NET_ADMIN)
 
+  authelia:
+    image: authelia/authelia
+    container_name: authelia
+    volumes:
+      - ./Authelia:/config #change this to a shared folder on your system. DO NOT use a "volume"
+    ports:
+      - 9091:9091
+    environment:
+      TZ: 'Europe/Zagreb'
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+
 networks:
   proxy:
     external: true

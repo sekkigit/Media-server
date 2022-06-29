@@ -23,7 +23,9 @@ apt install git -y
 #DIRECTORY
 mkdir /media/share
 mkdir /home/"$USER"/docker
-mkdir /home/"$USER"/docker/{homer,prometheus,portainer-data,vpn-data,speedtest,filebrowser,hugo}
+mkdir /home/"$USER"/docker/{homer,prometheus,portainer-data,vpn-data,speedtest,filebrowser,hugo,pihole,Authelia}
+mkdir /home/"$USER"/docker/pihole{etc-pihole,etc-dnsmasq.d}
+
 
 #HDD-MOUNT
 cat <<EOF >> /etc/fstab
@@ -198,6 +200,7 @@ cat <<EOF > ./init-log
 |     WEB:
 |
 |        - Nginx:      $IP:8585
+|        - Authelia   :$IP:9091
 |        - Portainer:  $IP:9090
 |        - Grafana:    $IP:3030
 |        - SpeedTest:  $IP:4040

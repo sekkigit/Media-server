@@ -38,7 +38,7 @@ real_ip_recursive on;
 #######################################################################################################################
 location /authelia {
 internal;
-set $upstream_authelia http://192.168.1.25:9091/api/verify; #change the IP and Port to match the IP and Port of your Authelia container
+set $upstream_authelia http://192.168.1.42:9091/api/verify; #change the IP and Port to match the IP and Port of your Authelia container
 proxy_pass_request_body off;
 proxy_pass $upstream_authelia;    
 proxy_set_header Content-Length "";

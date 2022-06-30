@@ -221,8 +221,6 @@ services:
     environment:
       TZ: 'Europe/Zagreb'
     restart: unless-stopped
-    security_opt:
-      - no-new-privileges:true
     networks:
       - proxy
 

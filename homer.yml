@@ -7,7 +7,8 @@ subtitle: "Dashboard"
 
 header: true
 footer: false
-columns: "3"
+columns: "4"
+connectivityCheck: true
 
 # Optional theme customization
 theme: default
@@ -115,3 +116,18 @@ services:
         url: "http://192.168.1.42:881/admin"
         target: "_blank"
       
+  - name: "Web-utilitys"
+    logo: "https://cdn-icons-png.flaticon.com/512/1043/1043688.png"
+    items:
+      - name: "Cloudflare"
+        logo: "https://www.svgrepo.com/show/331337/cloudflare.svg"
+        subtitle: "DNS"
+        url: "https://www.cloudflare.com"
+        target: "_blank"
+        tag: "web-DNS"
+      - name: "Namecheap"
+        logo: "https://cdn-icons-png.flaticon.com/512/7297/7297859.png"
+        subtitle: "Domains"
+        tag: "Domain provider"
+        url: "https://www.namecheap.com/myaccount/login/?ReturnUrl=%2f"
+        target: "_blank"

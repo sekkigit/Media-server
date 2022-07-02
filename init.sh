@@ -9,22 +9,40 @@ HandleLidSwitch=ignore
 HandleLidSwitchDocked=ignore
 EOF
 systemctl restart systemd-logind
+
+#TIMEZONE
 timedatectl set-timezone "$TIMEZONE"
+
+#SSH-LOCK
+echo "$KEY" >> /home/$USER/.ssh/authorized_keys
+cat <<EOF >> /etc/ssh/sshd_config
+MaxAuthTries 3
+PermitRootLogin no
+PasswordAuthentication no
+PermitEmptyPasswords no
+UsePAM yes
+PubkeyAuthentication yes
+EOF
 
 #UPDATES
 apt update
 apt upgrade -y
 
 #INSTALL-APPS
+apt install cron -y
 apt install nano -y
 apt install btop -y
 apt install git -y
 
 #DIRECTORY
 mkdir /media/share
+mkdir /media/share/{backup,Downloads}
 mkdir /home/"$USER"/docker
-mkdir /home/"$USER"/docker/{homer,prometheus,portainer-data,vpn-data,speedtest,filebrowser,hugo,pihole,Authelia}
-mkdir /home/"$USER"/docker/pihole{etc-pihole,etc-dnsmasq.d}
+mkdir /home/"$USER"/backup
+mkdir /home/"$USER"backup/{daily,weekly,monthly}
+mkdir /home/"$USER"/backup-task
+mkdir /home/"$USER"/docker/{homer,prometheus,portainer-data,vpn-data,speedtest,filebrowser,hugo,pihole,Authelia,}
+mkdir /home/"$USER"/docker/pihole/{etc-pihole,etc-dnsmasq.d}
 
 
 #HDD-MOUNT
@@ -49,12 +67,19 @@ ufw default reject incoming
 ufw default allow outgoing
 ufw allow 80/tcp   #HTTP
 ufw allow 443/tcp  #HTTPS
-ufw allow 9595/tcp #Homr
+ufw allow 881/tcp  #Pihole
+ufw allow 2222/tcp #Filebrowser
 ufw allow 3030/tcp #Grafana
+ufw allow 4040/tcp #SpeedTest
+ufw allow 5151/tcp #Homr
+ufw allow 8585/tcp #Nginx
 ufw limit 9000     #Prometheus
-ufw limit 2020     #Qbittorrent
+ufw allow 9090/tcp #Porteiner
+ufw allow 9091/tcp #Authelia
+ufw limit 1111     #Qbittorrent
 ufw limit 6881/tcp #Qbittorrent
 ufw limit 6881/udp #Qbittorrent
+
 
 #SAMBA
 apt install samba -y
@@ -171,12 +196,50 @@ EOF
 setfacl -m "u:root:rw" /home/"$USER"/docker/.env
 docker-compose -f /home/"$USER"/docker/docker-compose.yml --env-file /home/"$USER"/docker/.env up -d
 
-#CRONTAB
-cat <<EOF >> /etc/crontab
-0 5 * * * root    apt update && apt upgrade -y
-20 5 * * * root    cscli hub update && cscli collections upgrade crowdsecurity/sshd && systemctl reload crowdsec
-30 5 * * * root    docker system prune -a -f
+#BACKUP
+cat <<EOF >> /home/"$USER"/backup-task/backup-daily.sh
+#!/bin/bash
+
+docker-compose -f /home/"$USER"/docker/docker-compose.yml pause
+tar --exclude=/home/"$USER"/docker/qbit/config/qBittorrent/ipc-socket -zcf /home/"$USER"/backup/daily/backup-$(date +%Y%m%d).tar.gz -C /home/"$USER"/docker/*
+find /home/"$USER"/backup/daily/* -mtime +7 -delete
+docker-compose -f /home/"$USER"/docker/docker-compose.yml unpause
 EOF
+chmod +x backup-daily.sh
+
+cat <<EOF >> /home/"$USER"/backup-task/backup-weekly.sh
+#!/bin/bash
+
+docker-compose -f /home/"$USER"/docker/docker-compose.yml pause
+tar --exclude=/home/"$USER"/docker/qbit/config/qBittorrent/ipc-socket -zcf /home/"$USER"/backup/weekly/backup-$(date +%Y%m%d).tar.gz -C /home/"$USER"/docker/*
+find /home/"$USER"/backup/weekly/* -mtime +31 -delete
+docker-compose -f /home/"$USER"/docker/docker-compose.yml unpause
+EOF
+chmod +x backup-weekly.sh
+
+cat <<EOF >> /home/"$USER"/backup-task/backup-monthly.sh
+#!/bin/bash
+
+docker-compose -f /home/"$USER"/docker/docker-compose.yml pause
+tar --exclude=/home/"$USER"/docker/qbit/config/qBittorrent/ipc-socket -zcf /home/"$USER"/backup/monthly/backup-$(date +%Y%m%d).tar.gz -C /home/"$USER"/docker/*
+find /home/"$USER"/backup/monthly/* -mtime +365 -delete
+docker-compose -f /home/"$USER"/docker/docker-compose.yml unpause
+EOF
+chmod +x backup-monthly.sh
+rsync -rtu --delete --info=del,name,stats2 "/home/seki/backup/*" "/media/share/backup/volume-1/docker/*"
+
+
+#CRONTAB
+cat <<EOF >> /etc/cron.d/crontask
+0 5 * * *  root    apt update && apt upgrade -y
+20 5 * * * root    cscli hub update && cscli collections upgrade crowdsecurity/sshd && systemctl reload crowdsec
+25 5 * * * root    docker system prune -a -f
+30 5 * * * root    /home/"$USER"/backup/daily/backup-daily.sh
+40 5 * * 1 root    /home/"$USER"/backup/weekly/backup-weekly.sh
+50 5 1 * * root    /home/"$USER"/backup/monthly/backup-monthly.sh
+0 6 * * 1  root    rsync -a --delete X Y
+EOF
+crontab -u "$USER" /etc/cron.d/crontask
 
 #LOG
 cat <<EOF > ./init-log
@@ -220,3 +283,4 @@ EOF
 
 cat ./init-log
 ufw --force enable
+systemctl restart sshd

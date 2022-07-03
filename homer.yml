@@ -8,7 +8,6 @@ subtitle: "Dashboard"
 header: true
 footer: false
 columns: "4"
-connectivityCheck: true
 
 # Optional theme customization
 theme: default
@@ -45,7 +44,7 @@ colors:
 links:
   - name: "Porfolio"
     icon: "fas fa-eye"
-    url: "https://porfolio.sekiteh.xyz/"
+    url: "https://sekkigit.github.io/porfolio.sekiteh/"
     target: "_blank" # optional html a tag target attribute
   - name: "Seki Git-Hub"
     icon: "fab fa-github"
@@ -115,7 +114,7 @@ services:
         tag: "Internal DNS"
         url: "http://192.168.1.42:881/admin"
         target: "_blank"
-      
+
   - name: "Web-utilitys"
     logo: "https://cdn-icons-png.flaticon.com/512/1043/1043688.png"
     items:

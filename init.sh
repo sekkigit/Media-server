@@ -41,7 +41,8 @@ mkdir /home/"$USER"/docker
 mkdir /home/"$USER"/backup
 mkdir /home/"$USER"backup/{daily,weekly,monthly}
 mkdir /home/"$USER"/backup-task
-mkdir /home/"$USER"/docker/{homer,prometheus,portainer-data,vpn-data,speedtest,filebrowser,hugo,pihole,Authelia,}
+mkdir /home/"$USER"/docker/{nginx,homer,prometheus,portainer-data,speedtest,filebrowser,pihole,Authelia,qbit}
+mkdir /home/"$USER"/docker/nginx/{mysql,data,letsencrypt}
 mkdir /home/"$USER"/docker/pihole/{etc-pihole,etc-dnsmasq.d}
 
 
@@ -59,6 +60,10 @@ apt install crowdsec-firewall-bouncer-iptables -y
 systemctl enable crowdsec
 systemctl start crowdsec
 cscli collections install crowdsecurity/whitelist-good-actors
+sudo cscli parsers install crowdsecurity/iptables-logs
+sudo cscli hub update
+sudo cscli parsers upgrade crowdsecurity/sshd-logs 
+
 systemctl reload crowdsec
 
 #UFW
@@ -151,16 +156,16 @@ cp ./docker-compose.yml /home/"$USER"/docker/docker-compose.yml
 cp ./homer.yml /home/"$USER"/docker/homer/config.yml
 
 cat <<EOF > /home/"$USER"/docker/.env
-USER=${USER}
-SITE=${SITE}
-TIMEZONE=${TIMEZONE}
-PUID=${PUID}
-PGID=${PGID}
-DNSAPI=${DNSAPI}
-ROOT_PASSWORD=${ROOT_PASSWORD}
-MYSQL_DATABASE=${MYSQL_DATABASE}
-MYSQL_USER=${MYSQL_USER}
-MYSQL_PASSWORD=${MYSQL_PASSWORD}
+USER="${USER}"
+SITE="${SITE}"
+TIMEZONE="${TIMEZONE}"
+PUID="${PUID}"
+PGID="${PGID}"
+DNSAPI="${DNSAPI}"
+ROOT_PASSWORD="${ROOT_PASSWORD}"
+MYSQL_DATABASE="${MYSQL_DATABASE}"
+MYSQL_USER="${MYSQL_USER}"
+MYSQL_PASSWORD="${MYSQL_PASSWORD}"
 EOF
 
 cat <<EOF > /home/$USER/docker/prometheus/prometheus.yml

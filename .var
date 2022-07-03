@@ -10,9 +10,9 @@ PUBIP=$(curl ifconfig.me)
 SUBNET=$(ip -o -f inet addr show | awk '/scope global/ {printf "%s ", $4}' | awk '{print $1}')
 NETADAPT=$(ip route | grep default | sed -e "s/^.*dev.//" -e "s/.proto.*//")
 
-FTPUSER=user
-FTPPASS=pass
-FTPSERVER=addres
+FTPUSER="user"
+FTPPASS="pass"
+FTPSERVER="ip"
 
 SITE="sekiteh.xyz"
 DNSAPI="API-KEY"

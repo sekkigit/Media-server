@@ -21,12 +21,13 @@ services:
     container_name: mariadb
     env_file: .env
     environment:
+      TZ: 'Europe/Zagreb'
       MYSQL_ROOT_PASSWORD: '${ROOT_PASSWORD}'
       MYSQL_DATABASE: '${MYSQL_DATABASE}'
       MYSQL_USER: '${MYSQL_USER}'
       MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
     volumes:
-      - ./data/mysql:/var/lib/mysql
+      - ./nginx/mysql:/var/lib/mysql
     restart: unless-stopped
     networks:
       - proxy
@@ -40,9 +41,10 @@ services:
       - 8585:81
       - 443:443
     volumes:
-      - ./data:/data
-      - ./letsencrypt:/etc/letsencrypt
+      - ./nginx/data:/data
+      - ./nginx/letsencrypt:/etc/letsencrypt
     environment:
+      TZ: 'Europe/Zagreb'
       DB_MYSQL_HOST: "db"
       DB_MYSQL_PORT: 3306
       DB_MYSQL_USER: "${MYSQL_USER}"
@@ -210,6 +212,9 @@ services:
     #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
     cap_add:
       - NET_ADMIN # Recommended but not required (DHCP needs NET_ADMIN)
+    restart: unless-stopped
+    networks:
+      - proxy
 
   authelia:
     image: authelia/authelia

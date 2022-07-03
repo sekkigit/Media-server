@@ -210,7 +210,7 @@ tar --exclude=/home/"$USER"/docker/qbit/config/qBittorrent/ipc-socket -zcf /home
 find /home/"$USER"/backup/daily/* -mtime +7 -delete
 docker-compose -f /home/"$USER"/docker/docker-compose.yml unpause
 EOF
-chmod +x backup-daily.sh
+chmod +x /home/"$USER"/backup-task/backup-daily.sh
 
 cat <<EOF >> /home/"$USER"/backup-task/backup-weekly.sh
 #!/bin/bash
@@ -220,7 +220,7 @@ tar --exclude=/home/"$USER"/docker/qbit/config/qBittorrent/ipc-socket -zcf /home
 find /home/"$USER"/backup/weekly/* -mtime +31 -delete
 docker-compose -f /home/"$USER"/docker/docker-compose.yml unpause
 EOF
-chmod +x backup-weekly.sh
+chmod +x /home/"$USER"/backup-task/backup-weekly.sh
 
 cat <<EOF >> /home/"$USER"/backup-task/backup-monthly.sh
 #!/bin/bash
@@ -230,9 +230,7 @@ tar --exclude=/home/"$USER"/docker/qbit/config/qBittorrent/ipc-socket -zcf /home
 find /home/"$USER"/backup/monthly/* -mtime +365 -delete
 docker-compose -f /home/"$USER"/docker/docker-compose.yml unpause
 EOF
-chmod +x backup-monthly.sh
-rsync -rtu --delete --info=del,name,stats2 "/home/seki/backup/*" "/media/share/backup/volume-1/docker/*"
-
+chmod +x /home/"$USER"/backup-task/backup-monthly.sh
 
 #CRONTAB
 cat <<EOF >> /etc/cron.d/crontask
@@ -242,7 +240,6 @@ cat <<EOF >> /etc/cron.d/crontask
 30 5 * * * root    /home/"$USER"/backup-task/backup-daily.sh
 40 5 * * 1 root    /home/"$USER"/backup-task/backup-weekly.sh
 50 5 1 * * root    /home/"$USER"/backup-task/backup-monthly.sh
-0 6 * * 1  root    rsync -a --delete X Y
 EOF
 crontab -u "$USER" /etc/cron.d/crontask
 

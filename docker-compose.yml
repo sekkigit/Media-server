@@ -197,34 +197,17 @@ services:
   pihole:
     container_name: pihole
     image: pihole/pihole:latest
-    # For DHCP it is recommended to remove these ports and instead add: network_mode: "host"
     ports:
       - "192.168.1.42:53:53/tcp"
       - "192.168.1.42:53:53/udp"
       - "881:80/tcp"
     environment:
       TZ: 'Europe/Zagreb'
-      # WEBPASSWORD: 'set a secure password here or it will be random'
-    # Volumes store your data between container upgrades
     volumes:
       - './pihole/etc-pihole:/etc/pihole'
       - './pihole/etc-dnsmasq.d:/etc/dnsmasq.d'
-    #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
     cap_add:
-      - NET_ADMIN # Recommended but not required (DHCP needs NET_ADMIN)
-    restart: unless-stopped
-    networks:
-      - proxy
-
-  authelia:
-    image: authelia/authelia
-    container_name: authelia
-    volumes:
-      - ./Authelia:/config #change this to a shared folder on your system. DO NOT use a "volume"
-    ports:
-      - 9091:9091
-    environment:
-      TZ: 'Europe/Zagreb'
+      - NET_ADMIN
     restart: unless-stopped
     networks:
       - proxy

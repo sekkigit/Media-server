@@ -224,22 +224,6 @@ services:
     networks:
       - proxy
 
-  nextcloud:
-    container_name: nextcloud
-    image: lscr.io/linuxserver/nextcloud:latest
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Zagreb
-    volumes:
-      - ./nextcloud/config:/config
-      - ./nextcloud/data:/data
-    ports:
-      - 5254:443
-    restart: unless-stopped
-    networks:
-      - proxy
-
 networks:
   proxy:
     external: true

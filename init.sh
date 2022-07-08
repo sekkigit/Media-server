@@ -41,7 +41,8 @@ mkdir /home/"$USER"/docker
 mkdir /home/"$USER"/backup
 mkdir /home/"$USER"/backup/{daily,weekly,monthly}
 mkdir /home/"$USER"/backup-task
-mkdir /home/"$USER"/docker/{nginx,homer,prometheus,portainer-data,speedtest,filebrowser,pihole,Authelia,qbit}
+mkdir /home/"$USER"/docker/{nginx,homer,prometheus,portainer-data,speedtest,filebrowser,pihole,qbit,focalboard,nextcloud}
+mkdir /home/"$USER"/docker/nextcloud/{config,data}
 mkdir /home/"$USER"/docker/nginx/{mysql,data,letsencrypt}
 mkdir /home/"$USER"/docker/pihole/{etc-pihole,etc-dnsmasq.d}
 
@@ -84,6 +85,8 @@ ufw allow 9091/tcp #Authelia
 ufw limit 1111     #Qbittorrent
 ufw limit 6881/tcp #Qbittorrent
 ufw limit 6881/udp #Qbittorrent
+ufw allow 5253     #Focalboard
+ufw allow 5254     #NextCloud
 
 
 #SAMBA
@@ -264,13 +267,17 @@ cat <<EOF > ./init-log
 |
 |     WEB:
 |
+|        - Pihole:     $IP:881
+|        - Qbittorrent:$IP:1111
+|        - Filemenager:$IP:2222
+|        - Grafana:    $IP:3030
+|        - SpeedTest:  $IP:4040
+|        - Focalboard: $IP:5253
+|        - NextCloud:  $IP:5254
 |        - Nginx:      $IP:8585
 |        - Authelia   :$IP:9091
 |        - Portainer:  $IP:9090
-|        - Grafana:    $IP:3030
-|        - SpeedTest:  $IP:4040
 |        - Prometheus: $IP:9000
-|        - Qbittorrent:$IP:2020
 |
 ###############################################################
 |
@@ -280,6 +287,9 @@ cat <<EOF > ./init-log
 |              SSH ==> ssh $USER@$IP
 |
 ###############################################################
+
+ufw allow 5253     #Focalboard
+ufw allow 5254     #NextCloud
 
 EOF
 

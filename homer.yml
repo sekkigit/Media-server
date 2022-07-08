@@ -76,6 +76,12 @@ services:
         tag: "File menager"
         url: "https://file.sekiteh.xyz"
         target: "_blank"
+      - name: "Focalboard"
+        logo: "https://github.com/walkxhub/dashboard-icons/blob/master/png/freshrss.png?raw=true"
+        subtitle: "Task Management"
+        tag: "Menage tasks"
+        url: "https://board.sekiteh.xyz"
+        target: "_blank"
 
   - name: "Monitor"
     logo: "https://cdn-icons-png.flaticon.com/512/429/429331.png"

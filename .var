@@ -1,4 +1,4 @@
-USER="seki"
+USER="*********"
 USERROLL="admin"
 KEY="***************"
 
@@ -22,8 +22,8 @@ TIMEZONE="Europe/Zagreb"
 
 OSVER=$(cat /etc/*release | awk '/DISTRIB_DESCRIPTION=/ {print $2}')
 
-ROOT_PASSWORD="HAZsJ2zQsb!vg4s6w4"
-MYSQL_DATABASE="cjKkvqiSHsDiBpP"
-MYSQL_USER="XtrltRuadsaKexH"
-MYSQL_PASSWORD="7^5D2x34rPg!7fs"
+ROOT_PASSWORD="****************"
+MYSQL_DATABASE="****************"
+MYSQL_USER="*****************"
+MYSQL_PASSWORD="*****************"
 

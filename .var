@@ -1,29 +1,25 @@
-USER="*********"
+USER="$(id -u -n)"
 USERROLL="admin"
 KEY="***************"
 
-PUID="$(id -u seki)"
-PGID="$(id -g seki)"
+PUID="$(id -u)"
+PGID="$(id -g)"
 
 IP=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 PUBIP=$(curl ifconfig.me)
 SUBNET=$(ip -o -f inet addr show | awk '/scope global/ {printf "%s ", $4}' | awk '{print $1}')
 NETADAPT=$(ip route | grep default | sed -e "s/^.*dev.//" -e "s/.proto.*//")
 
-FTPUSER="user"
-FTPPASS="pass"
-FTPSERVER="ip"
-
-SITE="sekiteh.xyz"
+SITE="sute.com"
 DNSAPI="API-KEY"
 
 IP=$(curl ifconfig.me)
-TIMEZONE="Europe/Zagreb"
+TIMEZONE="Continent/State"
 
 OSVER=$(cat /etc/*release | awk '/DISTRIB_DESCRIPTION=/ {print $2}')
 
-ROOT_PASSWORD="****************"
-MYSQL_DATABASE="****************"
-MYSQL_USER="*****************"
-MYSQL_PASSWORD="*****************"
+ROOT_PASSWORD="$(gpg --gen-random --armor 1 14)"
+MYSQL_DATABASE="$(gpg --gen-random --armor 1 14)"
+MYSQL_USER="$(gpg --gen-random --armor 1 14)"
+MYSQL_PASSWORD="$(gpg --gen-random --armor 1 14)"
 

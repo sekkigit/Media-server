@@ -292,10 +292,6 @@ cat <<EOF > ./init-log
 |              SSH ==> ssh $USER@$IP
 |
 ###############################################################
-
-ufw allow 5253     #Focalboard
-ufw allow 5254     #NextCloud
-
 EOF
 
 cat ./init-log

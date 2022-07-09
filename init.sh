@@ -246,6 +246,11 @@ cat <<EOF >> /etc/cron.d/crontask
 EOF
 crontab -u "$USER" /etc/cron.d/crontask
 
+#ALIAS
+cat <<EOF >> ~/.bashrc
+alias clean-downloads='sudo rm -rf /media/share/Downloads && sudo mkdir /media/share/Downloads && sudo sudo chown -R smbuser:smbgroup /media/share/Downloads'
+EOF
+source ~/.bashrc
 #LOG
 cat <<EOF > ./init-log
 

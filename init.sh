@@ -2,6 +2,8 @@
 
 source .var
 
+apt remove needrestart -y
+
 #LAPTOP-LID-OFF
 cat <<EOF >> /etc/systemd/logind.conf
 HandleSuspendKey=ignore

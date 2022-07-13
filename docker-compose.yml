@@ -212,18 +212,6 @@ services:
     networks:
       - proxy
 
-  focalboard:
-    container_name: focalboard
-    image: mattermost/focalboard:latest
-    ports:
-      - 5253:8000
-    environment:
-      - VIRTUAL_HOST=focalboard.local
-      - VIRTUAL_PORT=8000
-    restart: unless-stopped
-    networks:
-      - proxy
-
 networks:
   proxy:
     external: true

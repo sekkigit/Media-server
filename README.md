@@ -1,7 +1,7 @@
 # Plexserver
 
 <p align="center">
-![alt text](https://sekkigit.github.io/porfolio.sekiteh/img/works/1.jpg)
+  <img width="500" height="500" src="https://sekkigit.github.io/porfolio.sekiteh/img/works/1.jpg">
 </p>
 
 ```

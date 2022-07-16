@@ -37,16 +37,12 @@ apt install btop -y
 apt install git -y
 
 #DIRECTORY
-mkdir /media/share
-mkdir /media/share/{backup,Downloads}
-mkdir /home/"$USER"/docker
-mkdir /home/"$USER"/backup
-mkdir /home/"$USER"/backup/{daily,weekly,monthly}
 mkdir /home/"$USER"/backup-task
-mkdir /home/"$USER"/docker/{nginx,homer,prometheus,portainer-data,speedtest,filebrowser,pihole,qbit,focalboard,nextcloud}
-mkdir /home/"$USER"/docker/nextcloud/{config,data}
-mkdir /home/"$USER"/docker/nginx/{mysql,data,letsencrypt}
-mkdir /home/"$USER"/docker/pihole/{etc-pihole,etc-dnsmasq.d}
+mkdir -p /media/share/Downloads
+mkdir -p /home/"$USER"/backup/{daily,weekly,monthly}
+mkdir -p /home/"$USER"/docker/{homer,prometheus,portainer-data,speedtest,filebrowser,qbit,focalboard}
+mkdir -p /home/"$USER"/docker/nginx/{mysql,data,letsencrypt}
+mkdir -p /home/"$USER"/docker/pihole/{etc-pihole,etc-dnsmasq.d}
 
 
 #HDD-MOUNT
@@ -299,3 +295,4 @@ EOF
 cat ./init-log
 ufw --force enable
 systemctl restart sshd
+rm -rf /home/"$USER"/.gnupg

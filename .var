@@ -1,4 +1,4 @@
-USER="$(id -u -n)"
+USER="$(who am i | awk '{print $1}')"
 USERROLL="admin"
 KEY="***************"
 
@@ -10,16 +10,16 @@ PUBIP=$(curl ifconfig.me)
 SUBNET=$(ip -o -f inet addr show | awk '/scope global/ {printf "%s ", $4}' | awk '{print $1}')
 NETADAPT=$(ip route | grep default | sed -e "s/^.*dev.//" -e "s/.proto.*//")
 
-SITE="sute.com"
-DNSAPI="API-KEY"
+SITE="site.xyz"
+DNSAPI="API-KEY" #CLOUDFLARE DNS API
 
 IP=$(curl ifconfig.me)
 TIMEZONE="Continent/State"
 
 OSVER=$(cat /etc/*release | awk '/DISTRIB_DESCRIPTION=/ {print $2}')
 
-ROOT_PASSWORD="$(gpg --gen-random --armor 1 14)"
-MYSQL_DATABASE="$(gpg --gen-random --armor 1 14)"
-MYSQL_USER="$(gpg --gen-random --armor 1 14)"
+ROOT_PASSWORD="$(gpg --gen-random --armor 1 20)"
+MYSQL_DATABASE="$(gpg --gen-random --armor 1 6)"
+MYSQL_USER="$(gpg --gen-random --armor 1 6)"
 MYSQL_PASSWORD="$(gpg --gen-random --armor 1 14)"
 

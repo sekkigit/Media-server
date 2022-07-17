@@ -1,4 +1,4 @@
-USER="$(who am i | awk '{print $1}')"
+USER="${SUDO_USER:-$USER}"
 USERROLL="admin"
 KEY="***************"
 

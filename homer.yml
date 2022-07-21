@@ -78,7 +78,7 @@ services:
         target: "_blank"
       - name: "Code Server"
         logo: "https://github.com/sekkigit/Plexserver/blob/main/icons/vscode.png?raw=true"
-        subtitle: "Files"
+        subtitle: "Code space"
         tag: "VSCode"
         url: "https://code-server.sekiteh.xyz"
         target: "_blank"

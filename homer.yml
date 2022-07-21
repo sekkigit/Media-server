@@ -76,6 +76,12 @@ services:
         tag: "File menager"
         url: "https://file.sekiteh.xyz"
         target: "_blank"
+      - name: "Code Server"
+        logo: "https://github.com/sekkigit/Plexserver/blob/main/icons/vscode.png?raw=true"
+        subtitle: "Files"
+        tag: "VSCode"
+        url: "https://code-server.sekiteh.xyz"
+        target: "_blank"
 
   - name: "Monitor"
     logo: "https://cdn-icons-png.flaticon.com/512/429/429331.png"

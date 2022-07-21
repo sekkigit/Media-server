@@ -211,6 +211,28 @@ services:
     restart: unless-stopped
     networks:
       - proxy
+  
+  code-server:
+    image: lscr.io/linuxserver/code-server
+    container_name: code-server
+    env_file: .env
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}
+      - PASSWORD=password #optional
+      - HASHED_PASSWORD= #optional
+      - SUDO_PASSWORD=password #optional
+      - SUDO_PASSWORD_HASH= #optional
+      - PROXY_DOMAIN=code-server.sekiteh.xyz #optional
+      - DEFAULT_WORKSPACE=/config/workspace #optional
+    volumes:
+      - /code/config:/config
+    ports:
+      - 8443:8443
+    restart: unless-stopped
+    networks:
+      - proxy
 
 networks:
   proxy:

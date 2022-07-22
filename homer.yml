@@ -48,7 +48,7 @@ links:
     target: "_blank" # optional html a tag target attribute
   - name: "Linkedin"
     icon: "far fa-user-circle"
-    url: "https://www.linkedin.com/in/senad-dizdarevic-062269100/"
+    url: "https://hr.linkedin.com/in/senad-dizdarevic-062269100?trk=people-guest_people_search-card"
     target: "_blank" # optional html a tag target attribute
   - name: "GitHub"
     icon: "fab fa-github"

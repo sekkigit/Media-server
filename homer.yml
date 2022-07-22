@@ -43,10 +43,14 @@ colors:
 # links: [] # Allows for navbar (dark mode, layout, and search) without any links
 links:
   - name: "Porfolio"
-    icon: "fas fa-eye"
-    url: "https://sekkigit.github.io/porfolio.sekiteh/"
+    icon: "fas fa-user-circle"
+    url: "https://porfolio.sekiteh.xyz"
     target: "_blank" # optional html a tag target attribute
-  - name: "Seki Git-Hub"
+  - name: "Linkedin"
+    icon: "far fa-user-circle"
+    url: "https://www.linkedin.com/in/senad-dizdarevic-062269100/"
+    target: "_blank" # optional html a tag target attribute
+  - name: "GitHub"
     icon: "fab fa-github"
     url: "https://github.com/sekkigit"
     target: "_blank" # optional html a tag target attribute

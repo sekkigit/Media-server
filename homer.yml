@@ -140,7 +140,7 @@ services:
         tag: "Domain provider"
         url: "https://www.namecheap.com/myaccount/login/?ReturnUrl=%2f"
         target: "_blank"
-      - name: "Namecheap"
+      - name: "My IP"
         logo: "https://github.com/sekkigit/Plexserver/blob/main/icons/ip.png?raw=true"
         subtitle: "IP address lookup"
         tag: "What's my IP?"

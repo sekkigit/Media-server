@@ -118,13 +118,7 @@ services:
         tag: "Docker menager"
         url: "https://dock.sekiteh.xyz"
         target: "_blank"
-      - name: "Pi-Hole"
-        logo: "https://github.com/sekkigit/Media-server/blob/main/icons/pihole.png?raw=true"
-        subtitle: "DNS"
-        tag: "Internal DNS"
-        url: "http://192.168.1.42:881/admin"
-        target: "_blank"
-
+      
   - name: "Web-utilitys"
     logo: "https://cdn-icons-png.flaticon.com/512/1043/1043688.png"
     items:
@@ -135,7 +129,7 @@ services:
         target: "_blank"
         tag: "web-DNS"
       - name: "Namecheap"
-        logo: "https://github.com/sekkigit/Media-server/blob/main/icons/cloudflare.png?raw=true"
+        logo: "https://github.com/sekkigit/Media-server/blob/main/icons/namecheap.png?raw=true"
         subtitle: "Domains"
         tag: "Domain provider"
         url: "https://www.namecheap.com/myaccount/login/?ReturnUrl=%2f"

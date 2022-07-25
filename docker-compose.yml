@@ -138,7 +138,7 @@ services:
 
   cloudflare-ddns:
     image: oznu/cloudflare-ddns:latest
-    container_name: ddns
+    container_name: ddns-cloudflare
     restart: unless-stopped
     env_file: .env
     environment:
@@ -194,24 +194,6 @@ services:
     networks:
       - proxy
 
-  pihole:
-    container_name: pihole
-    image: pihole/pihole:latest
-    ports:
-      - "192.168.1.42:53:53/tcp"
-      - "192.168.1.42:53:53/udp"
-      - "881:80/tcp"
-    environment:
-      TZ: 'Europe/Zagreb'
-    volumes:
-      - './pihole/etc-pihole:/etc/pihole'
-      - './pihole/etc-dnsmasq.d:/etc/dnsmasq.d'
-    cap_add:
-      - NET_ADMIN
-    restart: unless-stopped
-    networks:
-      - proxy
-
   code-server:
     image: lscr.io/linuxserver/code-server
     container_name: code-server
@@ -220,14 +202,14 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=${TIMEZONE}
-      - PASSWORD=password #optional
+      - PASSWORD= Miki0503#optional
       - HASHED_PASSWORD= #optional
-      - SUDO_PASSWORD=password #optional
+      - SUDO_PASSWORD=Mia1402 #optional
       - SUDO_PASSWORD_HASH= #optional
       - PROXY_DOMAIN=code-server.sekiteh.xyz #optional
       - DEFAULT_WORKSPACE=/config/workspace #optional
     volumes:
-      - /code/config:/config
+      - ./code/config:/config
     ports:
       - 8443:8443
     restart: unless-stopped
@@ -236,7 +218,7 @@ services:
 
   wireguard:
     image: lscr.io/linuxserver/wireguard
-    container_name: wireguard
+    container_name: vpn
     cap_add:
       - NET_ADMIN
       - SYS_MODULE
@@ -244,7 +226,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Zagreb
-      - SERVERURL=wireguard.sekiteh.xyz #optional
+      - SERVERURL=vpn.sekiteh.xyz #optional
       - SERVERPORT=51820 #optional
       - PEERS=1 #optional
       - PEERDNS=auto #optional

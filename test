@@ -1,0 +1,12 @@
+nadji sredinu rijeci tipa ako ima paran broj recimo mile ulovit ce slova IL ako ima neparan broj
+ slova recimo mario lovi onda samo recimo R 
+rijeci 
+MARIO R 
+MATIJA TI 
+TEST ES
+
+
+
+imas bankomat. bankomat prima samo 4 ili 6 simbola... ako ima 4 ili 6 ce napisati OK. 
+ako ima manje ili vise ce napisati ERROR. Moraju biti samo brojevi, i nesmiju bit slova. 
+ako su slova pise ERROR a ko pise brojevi nastavit ce dalje

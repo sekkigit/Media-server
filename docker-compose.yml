@@ -202,9 +202,9 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=${TIMEZONE}
-      - PASSWORD= Miki0503#optional
+      - PASSWORD=PASSWORD #optional
       - HASHED_PASSWORD= #optional
-      - SUDO_PASSWORD=Mia1402 #optional
+      - SUDO_PASSWORD=PASSWORD #optional
       - SUDO_PASSWORD_HASH= #optional
       - PROXY_DOMAIN=code-server.sekiteh.xyz #optional
       - DEFAULT_WORKSPACE=/config/workspace #optional
@@ -219,13 +219,14 @@ services:
   wireguard:
     image: lscr.io/linuxserver/wireguard
     container_name: vpn
+    env_file: .env
     cap_add:
       - NET_ADMIN
       - SYS_MODULE
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Europe/Zagreb
+      - TZ=${TIMEZONE}
       - SERVERURL=vpn.sekiteh.xyz #optional
       - SERVERPORT=51820 #optional
       - PEERS=1 #optional

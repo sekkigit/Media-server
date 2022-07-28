@@ -1,12 +1,22 @@
-# Plexserver
+# Plexserver Installer
+### For Ubuntu 22.04 LTS (minimized install) and Ubuntu 20.04
 
 <p align="center">
   <img width="500" height="500" src="https://github.com/sekkigit/porfolio.sekiteh/blob/gh-pages/img/works/1.jpg?raw=true">
 </p>
 
+<p align="right">COPY
+</p>
+
 ```
 git clone https://github.com/sekkigit/Plexserver.git plexserver && cd plexserver && sudo bash init.sh
 ```
+
+#### Install: 
+
+| Program | Description |
+| --- | --- |
+| Mediaserver | Create a Plex server. |
 
 <details><summary>Warning</summary>
 <p>

@@ -10,7 +10,7 @@ PUBIP=$(curl ifconfig.me)
 SUBNET=$(ip -o -f inet addr show | awk '/scope global/ {printf "%s ", $4}' | awk '{print $1}')
 NETADAPT=$(ip route | grep default | sed -e "s/^.*dev.//" -e "s/.proto.*//")
 
-SITE="site.xyz"
+SITE="site.com"
 DNSAPI="API-KEY" #CLOUDFLARE DNS API
 
 IP=$(curl ifconfig.me)

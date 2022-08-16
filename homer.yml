@@ -134,6 +134,12 @@ services:
   - name: "Monitor"
     logo: "https://cdn-icons-png.flaticon.com/512/429/429331.png"
     items:
+      - name: "Motomo"
+        logo: "https://github.com/sekkigit/Media-server/blob/main/icons/matomo.png?raw=true"
+        subtitle: "Analytics"
+        url: "https://analytics.sekiteh.xyz"
+        target: "_blank"
+        tag: "Monitor web traffic"
       - name: "Grafana"
         logo: "https://github.com/sekkigit/Media-server/blob/main/icons/grafana.png?raw=true"
         subtitle: "Monitoring"

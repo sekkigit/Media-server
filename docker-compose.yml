@@ -21,7 +21,7 @@ services:
     container_name: mariadb
     env_file: .env
     environment:
-      TZ: 'Europe/Zagreb'
+      TZ: '${TIMEZONE}'
       MYSQL_ROOT_PASSWORD: '${ROOT_PASSWORD}'
       MYSQL_DATABASE: '${MYSQL_DATABASE}'
       MYSQL_USER: '${MYSQL_USER}'
@@ -44,7 +44,7 @@ services:
       - ./nginx/data:/data
       - ./nginx/letsencrypt:/etc/letsencrypt
     environment:
-      TZ: 'Europe/Zagreb'
+      TZ: '${TIMEZONE}'
       DB_MYSQL_HOST: "db"
       DB_MYSQL_PORT: 3306
       DB_MYSQL_USER: "${MYSQL_USER}"

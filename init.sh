@@ -79,9 +79,12 @@ ufw allow 8585/tcp  #Nginx
 ufw allow 9000      #Prometheus
 ufw allow 9090/tcp  #Porteiner
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 ufw allow 9091/tcp  #Authelia
 >>>>>>> 726672e (1)
+=======
+>>>>>>> 10320d7 (1)
 ufw limit 1111      #Qbittorrent
 ufw limit 6881/tcp  #Qbittorrent
 ufw limit 6881/udp  #Qbittorrent

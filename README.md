@@ -9,7 +9,8 @@
 </p>
 
 ```
-git clone https://github.com/sekkigit/Plexserver.git plexserver && cd plexserver && sudo bash init.sh
+git clone https://github.com/sekkigit/Plexserver.git plexserver && cd plexserver && sudo nano .var
+sudo bash init.sh
 ```
 
 #### Install: 

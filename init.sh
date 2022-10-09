@@ -42,8 +42,6 @@ mkdir -p /media/share/Downloads
 mkdir -p /home/"$USER"/backup/{daily,weekly,monthly}
 mkdir -p /home/"$USER"/docker/{homer,prometheus,portainer-data,speedtest,filebrowser,qbit,focalboard}
 mkdir -p /home/"$USER"/docker/nginx/{mysql,data,letsencrypt}
-mkdir -p /home/"$USER"/docker/pihole/{etc-pihole,etc-dnsmasq.d}
-
 
 #HDD-MOUNT
 cat <<EOF >> /etc/fstab
@@ -78,13 +76,7 @@ ufw allow 5151/tcp  #Homr
 ufw allow 8585/tcp  #Nginx
 ufw allow 9000      #Prometheus
 ufw allow 9090/tcp  #Porteiner
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 ufw allow 9091/tcp  #Authelia
->>>>>>> 726672e (1)
-=======
->>>>>>> 10320d7 (1)
 ufw limit 1111      #Qbittorrent
 ufw limit 6881/tcp  #Qbittorrent
 ufw limit 6881/udp  #Qbittorrent

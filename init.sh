@@ -69,23 +69,20 @@ systemctl reload crowdsec
 apt install ufw -y
 ufw default reject incoming
 ufw default allow outgoing
-ufw allow 80/tcp   #HTTP
-ufw allow 443/tcp  #HTTPS
-ufw allow 881/tcp  #Pihole
-ufw allow 2222/tcp #Filebrowser
-ufw allow 3030/tcp #Grafana
-ufw allow 4040/tcp #SpeedTest
-ufw allow 5151/tcp #Homr
-ufw allow 8585/tcp #Nginx
-ufw limit 9000     #Prometheus
-ufw allow 9090/tcp #Porteiner
-ufw allow 9091/tcp #Authelia
-ufw limit 1111     #Qbittorrent
-ufw limit 6881/tcp #Qbittorrent
-ufw limit 6881/udp #Qbittorrent
-ufw allow 5253     #Focalboard
-ufw allow 5254     #NextCloud
-
+ufw allow 80/tcp    #HTTP
+ufw allow 443/tcp   #HTTPS
+ufw allow 2222/tcp  #Filebrowser
+ufw allow 3030/tcp  #Grafana
+ufw allow 4040/tcp  #SpeedTest
+ufw allow 5151/tcp  #Homr
+ufw allow 8585/tcp  #Nginx
+ufw allow 9000      #Prometheus
+ufw allow 9090/tcp  #Porteiner
+ufw limit 1111      #Qbittorrent
+ufw limit 6881/tcp  #Qbittorrent
+ufw limit 6881/udp  #Qbittorrent
+ufw allow 8443      #VSCode
+ufw allow 51820/udp #Wireguard
 
 #SAMBA
 apt install samba -y

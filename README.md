@@ -1,5 +1,5 @@
 # Plexserver Installer
-### For Ubuntu 22.04 LTS (minimized install) and Ubuntu 20.04
+### For Ubuntu 22.04/20.04
 
 <p align="center">
   <img width="500" height="500" src="https://github.com/sekkigit/porfolio.sekiteh/blob/gh-pages/img/works/1.jpg?raw=true">
